@@ -1,6 +1,7 @@
 package br.edu.icomp.plaintext;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -87,10 +88,19 @@ public class ListActivity extends AppCompatActivity {
             v.setOnClickListener(this);
         }
 
+
         public void onClick(View v) {
-            Toast.makeText(context, "Olá " + this.login.getText().toString(), Toast.LENGTH_LONG)
-                    .show();
+            Intent intent = new Intent(context, EditActivity.class);
+            intent.putExtra("passwordId", this.id);
+            context.startActivity(intent);
         }
+
+
+    }
+
+    public void buttonAddClick(View view) {
+        Intent intent = new Intent(this, EditActivity.class);
+        startActivity(intent);
     }
 
 

@@ -12,4 +12,5 @@
     <string name="setup">Configurações</string>
     <string name="about">Sobre</string>
     <string name="sampleList">Olá, aqui ficará a lista de senhas!</string>
+    <string name="buttonToAdd">Botão para adicionar senhas</string>
 </resources>
