@@ -3,11 +3,13 @@ package br.edu.icomp.plaintext;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -32,6 +34,24 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.about) {
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("PlainText Password Manager v1.0")
+                    .setNeutralButton("Ok", null).show();
+            return true;
+        }
+        else if (item.getItemId() == R.id.about) {
+            Intent intentConfig = new Intent(this, PreferencesActivity.class);
+            startActivity(intentConfig);
+            return true;
+        }
+        else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     public void entrarClicado (View view) {
 //        EditText editText = findViewById(R.id.editLogin);
