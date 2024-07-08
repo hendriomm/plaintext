@@ -45,6 +45,12 @@ public class ListActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
     static class PasswordsAdapter extends RecyclerView.Adapter<PasswordsViewHolder> {
         private final Context context;
         private ArrayList<Password> passwords;
@@ -87,22 +93,14 @@ public class ListActivity extends AppCompatActivity {
             login = v.findViewById(R.id.itemLogin);
             v.setOnClickListener(this);
         }
-
-
         public void onClick(View v) {
             Intent intent = new Intent(context, EditActivity.class);
             intent.putExtra("passwordId", this.id);
             context.startActivity(intent);
         }
-
-
     }
-
     public void buttonAddClick(View view) {
         Intent intent = new Intent(this, EditActivity.class);
         startActivity(intent);
     }
-
-
-
 }

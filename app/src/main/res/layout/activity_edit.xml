@@ -127,7 +127,7 @@
         app:srcCompat="@android:drawable/ic_input_get" />
 
     <EditText
-        android:id="@+id/editNotas"
+        android:id="@+id/addNotes"
         android:layout_width="240dp"
         android:layout_height="228dp"
         android:ems="10"
@@ -145,6 +145,7 @@
         android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="salvarClicado"
         android:text="SALVAR"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
