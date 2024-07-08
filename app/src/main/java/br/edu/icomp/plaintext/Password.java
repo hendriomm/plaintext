@@ -1,3 +1,5 @@
+package br.edu.icomp.plaintext;
+
 public class Password {
     private int id;
     private String name;

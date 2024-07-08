@@ -1,3 +1,5 @@
+package br.edu.icomp.plaintext;
+
 import android.content.Context;
 import android.widget.Toast;
 
