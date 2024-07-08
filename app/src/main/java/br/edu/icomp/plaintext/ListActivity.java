@@ -1,18 +1,29 @@
 package br.edu.icomp.plaintext;
 
-import static br.edu.icomp.plaintext.R.*;
-
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
 
 public class ListActivity extends AppCompatActivity {
+    private RecyclerView recyclerView;
+    private PasswordsAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +36,63 @@ public class ListActivity extends AppCompatActivity {
             return insets;
         });
 
-        TextView textBemVindo = findViewById(R.id.textBemVindo);
 
-        Intent intent = getIntent();
-        String login = intent.getStringExtra("login");
+        recyclerView = findViewById(R.id.list_recycler);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        textBemVindo.setText("Olá " + login + "!");
+        adapter = new PasswordsAdapter(this);
+        recyclerView.setAdapter(adapter);
     }
+
+    static class PasswordsAdapter extends RecyclerView.Adapter<PasswordsViewHolder> {
+        private final Context context;
+        private ArrayList<Password> passwords;
+        PasswordDAO passwordDAO;
+
+        public PasswordsAdapter(Context context) {
+            this.context = context;
+            passwordDAO = new PasswordDAO(context);
+            update();
+        }
+
+        public void update() { passwords = passwordDAO.getList(); }
+
+        @NonNull
+        public PasswordsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            ConstraintLayout v = (ConstraintLayout) LayoutInflater
+                    .from(parent.getContext())
+                    .inflate(R.layout.list_item, parent, false);
+            return new PasswordsViewHolder(v, context);
+        }
+
+        public void onBindViewHolder(PasswordsViewHolder holder, int position) {
+            holder.name.setText(passwords.get(position).getName());
+            holder.login.setText(passwords.get(position).getLogin());
+            holder.id = passwords.get(position).getId();
+        }
+
+        public int getItemCount() { return passwords.size(); }
+    }
+
+    static class PasswordsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        public Context context;
+        public TextView login, name;
+        public int id;
+
+        public PasswordsViewHolder(ConstraintLayout v, Context context) {
+            super(v);
+            this.context = context;
+            name = v.findViewById(R.id.itemName);
+            login = v.findViewById(R.id.itemLogin);
+            v.setOnClickListener(this);
+        }
+
+        public void onClick(View v) {
+            Toast.makeText(context, "Olá " + this.login.getText().toString(), Toast.LENGTH_LONG)
+                    .show();
+        }
+    }
+
+
+
 }

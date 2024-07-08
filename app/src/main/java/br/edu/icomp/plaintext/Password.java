@@ -7,7 +7,7 @@ public class Password {
     private String password;
     private String notes;
 
-    public Password(int id, String name, String login, String password, String notes) {
+    Password(int id, String name, String login, String password, String notes) {
         this.id = id;
         this.name = name;
         this.login = login;
@@ -55,3 +55,4 @@ public class Password {
         this.notes = notes;
     }
 }
+

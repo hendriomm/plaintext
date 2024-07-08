@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AlertDialog;
@@ -54,10 +53,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void entrarClicado (View view) {
-//        EditText editText = findViewById(R.id.editLogin);
-//        String login = editText.getText().toString();
-//        String msg = "Olá " + login + "!!";
-//        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, ListActivity.class);
         EditText inputLogin = findViewById(R.id.editLogin);
         intent.putExtra("login", inputLogin.getText().toString());
