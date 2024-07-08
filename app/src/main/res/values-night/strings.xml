@@ -1,12 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">PlainText</string>
     <string name="descricaoInicial">Digite suas credenciais para continuar</string>
     <string name="login">Login</string>
     <string name="senha">Senha</string>
     <string name="digiteLogin">Digite seu login</string>
     <string name="salvarLogin">Salvar informação de login</string>
     <string name="entrar">Entrar</string>
-    <string name="testimonial">\"The most secure password manager\"</string>
     <string name="testimonialAuthors">Alice and Bob</string>
     <string name="salvarLoginDescricao">Salvar informações de login?</string>
     <string name="setup">Configurações</string>
