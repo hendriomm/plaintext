@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
                     .setNeutralButton("Ok", null).show();
             return true;
         }
-        else if (item.getItemId() == R.id.about) {
+        else if (item.getItemId() == R.id.setup) {
             Intent intentConfig = new Intent(this, PreferencesActivity.class);
             startActivity(intentConfig);
             return true;
