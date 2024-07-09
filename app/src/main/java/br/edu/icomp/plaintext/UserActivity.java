@@ -18,12 +18,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
 public class UserActivity extends AppCompatActivity {
     public RecyclerView userRecycler;
+    private UserAdapter adapter;
 
 
     @Override
@@ -36,6 +38,12 @@ public class UserActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        userRecycler = findViewById(R.id.userRecycler);
+        userRecycler.setLayoutManager(new LinearLayoutManager(this));
+
+        adapter = new UserAdapter(this);
+        userRecycler.setAdapter(adapter);
     }
 
 
@@ -67,19 +75,22 @@ public class UserActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull UsersViewHolder holder, int position) {
-            
+            holder.nome.setText(users.get(position).getNome());
+            holder.email.setText(users.get(position).getEmail());
+            holder.id = users.get(position).getId();
+            //holder.image = userDAO.get(position).getPicture();
         }
 
         @Override
         public int getItemCount() {
-            return 0;
+            return users.size();
         }
     }
 
     static class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public Context context;
         public TextView nome, email;
-        public ImageView image;
+        public Image image;
         public int id;
 
         public UsersViewHolder(ConstraintLayout v, Context context) {
@@ -87,7 +98,7 @@ public class UserActivity extends AppCompatActivity {
             this.context = context;
             nome = v.findViewById(R.id.userNome);
             email = v.findViewById(R.id.userEmail);
-            image = v.findViewById(R.id.userImage);
+            //image = v.findViewById(R.id.userImage);
             v.setOnClickListener(this);
         }
         @Override
