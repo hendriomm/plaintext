@@ -4,20 +4,14 @@ import android.media.Image;
 
 public class User {
     private int id;
-    private String uuid;
     private String nome;
     private String email;
-    private String senha;
-    private Image picture;
 
 
-    public User(int id, String uuid, String nome, String email, String senha, Image picture) {
+    public User(int id, String nome, String email) {
         this.id = id;
-        this.uuid = uuid;
         this.nome = nome;
         this.email = email;
-        this.senha = senha;
-        this.picture = picture;
     }
 
     public int getId() {
@@ -26,14 +20,6 @@ public class User {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public String getNome() {
@@ -50,21 +36,5 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public Image getPicture() {
-        return picture;
-    }
-
-    public void setPicture(Image picture) {
-        this.picture = picture;
     }
 }

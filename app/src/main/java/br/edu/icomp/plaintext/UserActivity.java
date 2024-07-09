@@ -78,7 +78,7 @@ public class UserActivity extends AppCompatActivity {
             holder.nome.setText(users.get(position).getNome());
             holder.email.setText(users.get(position).getEmail());
             holder.id = users.get(position).getId();
-            //holder.image = userDAO.get(position).getPicture();
+
         }
 
         @Override
@@ -90,7 +90,7 @@ public class UserActivity extends AppCompatActivity {
     static class UsersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public Context context;
         public TextView nome, email;
-        public Image image;
+
         public int id;
 
         public UsersViewHolder(ConstraintLayout v, Context context) {
@@ -98,12 +98,12 @@ public class UserActivity extends AppCompatActivity {
             this.context = context;
             nome = v.findViewById(R.id.userNome);
             email = v.findViewById(R.id.userEmail);
-            //image = v.findViewById(R.id.userImage);
+
             v.setOnClickListener(this);
         }
         @Override
         public void onClick(View v) {
-            Toast.makeText(context, "+++", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ";)", Toast.LENGTH_SHORT).show();
         }
     }
 }
