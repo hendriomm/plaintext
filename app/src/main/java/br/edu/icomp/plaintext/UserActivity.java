@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
 public class UserActivity extends AppCompatActivity {
     public RecyclerView userRecycler;
@@ -44,8 +45,18 @@ public class UserActivity extends AppCompatActivity {
 
         adapter = new UserAdapter(this);
         userRecycler.setAdapter(adapter);
-    }
 
+        Executors.newSingleThreadExecutor().submit(() -> {
+            while (adapter.users.isEmpty()) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                updateUi();
+            }
+        });
+    }
 
     static class UserAdapter extends RecyclerView.Adapter<UsersViewHolder> {
         private final Context context;
@@ -105,5 +116,17 @@ public class UserActivity extends AppCompatActivity {
         public void onClick(View v) {
             Toast.makeText(context, ";)", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUi();
+
+    }
+
+    private void updateUi() {
+        adapter.update();
+        adapter.notifyDataSetChanged();
     }
 }

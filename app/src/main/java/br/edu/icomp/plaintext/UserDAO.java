@@ -7,10 +7,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,17 +21,21 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class UserDAO {
-    private Context context;
+    static final String TAG = "UserDAO";
+    private final Context context;
     private static final ArrayList<User> userList = new ArrayList<>();
+    private final RequestQueue queue;
 
     public UserDAO(Context context) {
+
         this.context = context;
+        queue = Volley.newRequestQueue(context);
     }
 
     ArrayList<User> getList() {
         if (userList.isEmpty()) {
-            for (int i = 0; i < 30; i++) {
-                jsonParse();
+            for (int index = 0; index < 10; index++) {
+                jsonParse(index);
             }
         }
         return userList;
@@ -52,12 +58,14 @@ public class UserDAO {
         return userList.get(id);
     }
 
-    public void jsonParse() {
+    public void jsonParse(int id) {
         String myUrl = "https://randomuser.me/api/?inc=name,email";
+        Log.d(TAG, "jsonParse");
         JsonObjectRequest request = new JsonObjectRequest(myUrl,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        Log.d(TAG, "onResponse");
                         JSONArray jsonArray;
                         JSONObject jObject, jNome;
                         String nome = null;
@@ -68,7 +76,8 @@ public class UserDAO {
                             jNome = (jObject.getJSONObject("name"));
                             nome = jNome.getString("first") + " " + jNome.getString("last");
                             email = jObject.getString("email");
-                            boolean s = add(new User(0, nome, email));
+                            boolean s = add(new User(id, nome, email));
+                            Log.d(TAG, "onResponse: " + nome + " - " + email);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -77,9 +86,9 @@ public class UserDAO {
                 , new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
-                Log.d("response", "onErrorResponse: " + volleyError.toString());
+                Log.d(TAG, "onErrorResponse: " + volleyError.toString());
             }
         });
-
+        queue.add(request);
     }
 }
